@@ -6,13 +6,13 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:21:56 by agengemb          #+#    #+#             */
-/*   Updated: 2022/12/19 14:14:07 by agengemb         ###   ########.fr       */
+/*   Updated: 2022/12/19 16:19:40 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/block.h"
 
-int init_block(t_block *block, char symbol, t_img **tiles_set)
+int	init_block(t_block *block, char symbol, t_img **tiles_set)
 {
 	block->type = symbol;
 	if (symbol == '0' || symbol == 'P')

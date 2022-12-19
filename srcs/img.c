@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:28:55 by agengemb          #+#    #+#             */
-/*   Updated: 2022/12/19 14:09:44 by agengemb         ###   ########.fr       */
+/*   Updated: 2022/12/19 16:26:41 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 
 t_img	*init_new_img(void *mlx, char *path)
 {
-	t_img *new_img;
+	t_img	*new_img;
 
 	new_img = malloc(sizeof(t_img));
 	if (!new_img)
-		return (NULL);	
+		return (NULL);
 	new_img->path = path;
-	new_img->img = mlx_xpm_file_to_image(mlx, new_img->path, &(new_img->width), &(new_img->height));
+	new_img->img = mlx_xpm_file_to_image(mlx, new_img->path,
+			&(new_img->width), &(new_img->height));
 	if (!(new_img->img))
 	{
 		free(new_img);

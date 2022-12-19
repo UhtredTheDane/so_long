@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:23:34 by agengemb          #+#    #+#             */
-/*   Updated: 2022/12/19 13:23:37 by agengemb         ###   ########.fr       */
+/*   Updated: 2022/12/19 16:29:52 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ t_queue	*ft_queuenew(char *content)
 
 void	queue_add(t_queue **queue, t_queue *new)
 {
-	t_queue *elem;
-	
+	t_queue	*elem;
+
 	if (queue)
 	{
 		if (!*queue)
@@ -49,11 +49,11 @@ void	queue_add(t_queue **queue, t_queue *new)
 		}
 	}
 }
-		
+
 void	queue_pop(t_queue **queue)
 {
-	t_queue *elem;
-	
+	t_queue	*elem;
+
 	if (queue && *queue)
 	{
 		elem = (*queue)->next;
