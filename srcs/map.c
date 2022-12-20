@@ -38,26 +38,41 @@ int	init_tiles_set(void *mlx, t_img **tiles_set)
 	return (1);
 }
 
-void	free_map(t_map *map, size_t index)
+void	free_block_map(t_block **block_map, size_t index)
 {
 	size_t	i;
 
 	i = 0;
 	while (i < index)
 	{
-		free(map->block_map[i]);
+		free(block_map[i]);
 		++i;
 	}
-	free(map->block_map);
-	free(map);
+	free(block_map);
 }
 
-int	check_block(size_t i, size_t j, char block_value)
+int	check_block(t_map *map, char symbol, size_t i, size_t j)
 {
+	if (i == 0 || i == map->line_nb - 1 || j == 0 || j == map->row_nb - 1)
+		return (symbol == '1');
+
+
+
+	if (symbol == 'P' && !map->player)
+	{
+		map->player = map->block_map[i][j];
+		return (1);
+	}
+	if (symbol == 'E' && !map->exit)
+	{
+		map->exit = map->block_map[i][j];
+		return (1);
+	}
+	
 	return (1);
 }
 
-int	fill_map(void *mlx, t_map *map, t_queue *queue, t_img **tiles_set)
+int	fill_map(t_map *map, t_block **block_map, t_queue *queue, t_img **tiles_set)
 {
 	size_t	i;
 	size_t	j;
@@ -70,10 +85,10 @@ int	fill_map(void *mlx, t_map *map, t_queue *queue, t_img **tiles_set)
 		j = 0;
 		while (j < map->row_nb)
 		{
-			if (!init_block(&map->block_map[i][j], line[j], tiles_set))
+			if (!check_block(map, line[j], i, j) || !init_block(&block_map[i][j], line[j], tiles_set))
 			{
 				write(2, "Error\n", 6);
-				free_map(map, map->line_nb);
+				free_block_map(block_map, map->line_nb);
 				return (0);
 			}
 			++j;
@@ -84,30 +99,33 @@ int	fill_map(void *mlx, t_map *map, t_queue *queue, t_img **tiles_set)
 	return (1);
 }
 
-t_block	**init_block_map(void *mlx, t_map *new_map)
+int	init_block_map(void *mlx, t_map *map, t_queue *queue, t_img **tiles_set)
 {
 	t_block	**block_map;
 	size_t	i;
 
-	block_map = malloc(sizeof(t_block *) * new_map->line_nb);
+	block_map = malloc(sizeof(t_block *) * map->line_nb);
 	if (!block_map)
-	{
-		free(new_map);
-		return (NULL);
-	}
+		return (0);
 	i = 0;
-	while (i < new_map->line_nb)
+	while (i < map->line_nb)
 	{
-		block_map[i] = malloc(sizeof(t_block) * new_map->row_nb);
+		block_map[i] = malloc(sizeof(t_block) * map->row_nb);
 		if (!block_map[i])
 		{
 			if (i > 0)
-				free_map(new_map, i);
-			return (NULL);
+				free_block_map(block_map, i);
+			return (0);
 		}
 		++i;
 	}
-	return (block_map);
+	map->block_map = block_map;
+	if(!fill_map(map, block_map, queue, tiles_set))
+	{
+		free_tiles_set(mlx, tiles_set, 4);
+		return (0);
+	}
+	return (1);
 }
 
 t_map	*create_map(void *mlx, t_queue *queue, size_t line_nb, size_t row_nb)
@@ -126,10 +144,13 @@ t_map	*create_map(void *mlx, t_queue *queue, size_t line_nb, size_t row_nb)
 	}
 	new_map->line_nb = line_nb;
 	new_map->row_nb = row_nb;
-	new_map->block_map = init_block_map(mlx, new_map);
-	if (!new_map->block_map || !(fill_map(mlx, new_map, queue, tiles_set)))
+	new_map->collectibles_nb = 0;
+	new_map->player = NULL;
+	new_map->exit = NULL;
+	if (!init_block_map(mlx, new_map, queue, tiles_set))
 	{
 		free_tiles_set(mlx, tiles_set, 4);
+		free(new_map);
 		return (NULL);
 	}
 	return (new_map);

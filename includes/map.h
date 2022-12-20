@@ -25,13 +25,17 @@ typedef struct s_map
 {
 	size_t	row_nb;
 	size_t	line_nb;
+	size_t	collectibles_nb;
+	t_block	*player;
+	t_block	*exit;
 	t_block **block_map;
 }	t_map;
 
 int	init_tiles_set(void *mlx, t_img **tiles_set);
-void  free_map(t_map *map, size_t index);
-int fill_map(void *mlx, t_map *map, t_queue *queue, t_img **tiles_set);
-t_block	**init_block_map(void *mlx, t_map *new_map);
+void	free_block_map(t_block **block_map, size_t index);
+int	check_block(t_map *map, char block_value, size_t i, size_t j);
+int	fill_map(t_map *map, t_block **block_map, t_queue *queue, t_img **tiles_set);
+int	init_block_map(void *mlx, t_map *map, t_queue *queue, t_img **tiles_set);
 t_map *create_map(void *mlx, t_queue *queue, size_t line_nb, size_t row_nb);
 
 #endif
