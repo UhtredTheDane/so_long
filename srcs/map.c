@@ -52,6 +52,11 @@ void	free_map(t_map *map, size_t index)
 	free(map);
 }
 
+int	check_block(size_t i, size_t j, char block_value)
+{
+	return (1);
+}
+
 int	fill_map(void *mlx, t_map *map, t_queue *queue, t_img **tiles_set)
 {
 	size_t	i;

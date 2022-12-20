@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 18:47:54 by agengemb          #+#    #+#             */
-/*   Updated: 2022/12/19 17:42:30 by agengemb         ###   ########.fr       */
+/*   Updated: 2022/12/19 17:59:54 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,22 @@ int	check_format(char *file_name)
 		return (1);
 }
 
-int	main(int argc, char **argv)
+int	check_row_nb(char *line, size_t *row_nb)
 {
-	int	map_fd;
-	
-	char	*line;
-	size_t row_nb;
-	t_queue	*queue;
-	t_queue	*elem;
-	t_canvas	*canvas;
-	
-	//MAP
-	if (argc != 2)
-		return (0);
-	map_fd = open(argv[1], O_RDONLY);
-	if (map_fd == -1 || !check_format(argv[1]))
+	if (ft_strlen(line) - 1 != *row_nb)
 	{
-		printf("pas pu ouvrir le fichier\n");
+		printf("Error\n");
 		return (0);
 	}
+	return (1);
+}
+
+t_queue	*load_map_in_queue(int map_fd, size_t *row_nb)
+{
+	char	*line;
+	t_queue	*queue;
+	t_queue	*elem;
+
 	line = "";
 	queue = NULL;
 	while (line != NULL)
@@ -56,28 +53,53 @@ int	main(int argc, char **argv)
 		if (line != NULL)
 		{
 			if (!queue)
-				row_nb = ft_strlen(line) - 1;
+				*row_nb = ft_strlen(line) - 1;
 			else
-			{
-				if (row_nb != ft_strlen(line) - 1)
-				{
-					printf("Error\n");
-					return (0);
-				}
-			}
+				if (!check_row_nb(line, row_nb))
+					return (NULL);
 			elem = ft_queuenew(line);
 			queue_add(&queue, elem);
 		}
 	}
+	return (queue);
+}
+
+//ne pas oublier fermeture plus free
+int	main(int argc, char **argv)
+{
+	int	map_fd;
+	t_canvas	*canvas;
+	t_queue *queue;
+	size_t row_nb;
+	
+	if (argc != 2)
+		return (0);
+	map_fd = open(argv[1], O_RDONLY);
+	if (map_fd == -1 || !check_format(argv[1]))
+	{
+		printf("pas pu ouvrir le fichier\n");
+		return (0);
+	}
+	queue = load_map_in_queue(map_fd, &row_nb);
+	if (!queue)
+		return (0);
 	canvas = create_canvas(queue, ft_queuesize(queue), row_nb);
 	if (!canvas)
 		return (0);
 	
+
+
+
 	for (int i = 0; i < canvas->map->line_nb; i++)
 	{
 		for (int j = 0; j < canvas->map->row_nb; j++)
 			mlx_put_image_to_window(canvas->mlx, canvas->window, canvas->map->block_map[i][j].img->img, j * 48, i * 48);
 	}
+
+
+
+
+
 	mlx_loop(canvas->mlx);
 	return (0);
 }
