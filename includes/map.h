@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:41:13 by agengemb          #+#    #+#             */
-/*   Updated: 2022/12/19 14:13:00 by agengemb         ###   ########.fr       */
+/*   Updated: 2022/12/30 20:20:18 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@
 # include "img.h"
 # include "block.h"
 # include "queue.h"
+# include "backtrack_data.h"
 
 typedef struct s_map
 {
 	size_t	row_nb;
 	size_t	line_nb;
-	size_t	collectibles_nb;
+	int	collectibles_nb;
+	size_t	empty_nb;
 	t_block	*player;
 	t_block	*exit;
 	t_block **block_map;
