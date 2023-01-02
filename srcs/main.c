@@ -89,7 +89,6 @@ int	main(int argc, char **argv)
 	
 
 
-
 	for (int i = 0; i < canvas->map->line_nb; i++)
 	{
 		for (int j = 0; j < canvas->map->row_nb; j++)

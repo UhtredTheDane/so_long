@@ -14,11 +14,17 @@
 # define BACKTRACK_DATA_H
 
 # include <stddef.h>
+# include "block.h"
 
 typedef struct s_backtrack_data
 {
 	int	c_remaining;
 	size_t	last_direction;
 }	t_backtrack_data;
+
+int choose_operate(t_block **block_map, size_t direction, int *position);
+void    reverse_operate(size_t direction, int *position);
+int is_useless(t_block **block_map, int *position, size_t direction, size_t last_direction);
+int	find_path(t_block **block_map, int *position, t_backtrack_data *data, size_t cross_block_nb);
 
 #endif

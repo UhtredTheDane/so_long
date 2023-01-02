@@ -36,8 +36,11 @@ typedef struct s_map
 int	init_tiles_set(void *mlx, t_img **tiles_set);
 void	free_block_map(t_block **block_map, size_t index);
 int	check_block(t_map *map, char block_value, size_t i, size_t j);
+void rec_fill(t_block **block_map, int i, int j);
+int check_path(t_map *map, t_block **block_map, int i_start, int j_start);
 int	fill_map(t_map *map, t_block **block_map, t_queue *queue, t_img **tiles_set);
 int	init_block_map(void *mlx, t_map *map, t_queue *queue, t_img **tiles_set);
 t_map *create_map(void *mlx, t_queue *queue, size_t line_nb, size_t row_nb);
+t_block **copy(t_map *map, t_block **block_map);
 
 #endif
