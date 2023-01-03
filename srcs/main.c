@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 18:47:54 by agengemb          #+#    #+#             */
-/*   Updated: 2023/01/03 23:02:17 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/01/03 23:21:09 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,26 +98,21 @@ int	main(int argc, char **argv)
 	if (!canvas)
 		return (0);
 	
-
-
 	img.img = mlx_new_image(canvas->mlx, canvas->map->row_nb * 48, canvas->map->line_nb * 48);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-	printf("%s\n", img.addr);
-	
-	test.addr = mlx_get_data_addr(test.img, &test.bits_per_pixel, &test.line_length, &test.endian);
-	
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);	int pixel;		
 	for (int i = 0; i < canvas->map->line_nb; i++)
 	{
 		for (int j = 0; j < canvas->map->row_nb; j++)
 		{
+			pixel = 0;
 			for (int y = 0; y < 48; y++)
 			{
 				for (int x = 0; x < 48; x++)
 				{
 					test.img = canvas->map->block_map[i][j].img->img;
 					test.addr = mlx_get_data_addr(test.img, &test.bits_per_pixel, &test.line_length, &test.endian);
-					int pixel = y * test.line_length + x * (test.bits_per_pixel / 8);
-					my_mlx_pixel_put(&img, x, y, *(int *)(test.addr + pixel));
+					pixel = y * test.line_length + x * (test.bits_per_pixel / 8);
+					my_mlx_pixel_put(&img, x + 48 * j , y + 48 * i, *(int *)(test.addr + pixel));
 				}
 			}
 		}
