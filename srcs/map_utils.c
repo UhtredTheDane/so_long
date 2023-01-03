@@ -56,5 +56,6 @@ int check_path(t_map *map, t_block **block_map, int i_start, int j_start)
 		}
 		++i;
 	}
+	free_block_map(tempo_block_map, map->line_nb);
 	return (1);
 }

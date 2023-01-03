@@ -20,7 +20,6 @@
 # include "img.h"
 # include "block.h"
 # include "queue.h"
-# include "backtrack_data.h"
 
 typedef struct s_map
 {

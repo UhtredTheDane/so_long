@@ -145,7 +145,6 @@ int	init_block_map(void *mlx, t_map *map, t_queue *queue, t_img **tiles_set)
 		free_block_map(block_map, map->line_nb);
 		return (0);
 	}
-	printf("type apres: %c\n", block_map[2][7].type);
 	return (1);
 }
 
