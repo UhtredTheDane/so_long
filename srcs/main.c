@@ -80,8 +80,9 @@ int	main(int argc, char **argv)
 	t_canvas	*canvas;
 	t_queue *queue;
 	size_t row_nb;
-	t_data img;
-	
+	t_data img, test;
+
+
 	if (argc != 2)
 		return (0);
 	map_fd = open(argv[1], O_RDONLY);
@@ -101,7 +102,26 @@ int	main(int argc, char **argv)
 
 	img.img = mlx_new_image(canvas->mlx, canvas->map->row_nb * 48, canvas->map->line_nb * 48);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-	my_mlx_pixel_put(&img, 100, 100, 0x0084C3BD);
+	test.img = canvas->map->block_map[0][0].img;
+	test.addr = mlx_get_data_addr(test.img, &test.bits_per_pixel, &test.line_length, &test.endian);
+	printf("%s\n", test.addr);
+
+	for (int y = 0; y < 48; y++)
+	{
+		for (int x = 0; x < 48; x++)
+		{
+			int pixel = y * test.line_length + x * (test.bits_per_pixel / 8);
+			my_mlx_pixel_put(&img, x, y, test.addr + pixel);
+		}
+	}
+	/*
+	for (int i = 0; i < canvas->map->line_nb; i++)
+	{
+		for (int j = 0; j < canvas->map->row_nb; j++)
+		{
+
+		}
+	}*/
 
 
 
