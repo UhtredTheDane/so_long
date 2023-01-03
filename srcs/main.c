@@ -104,29 +104,26 @@ int	main(int argc, char **argv)
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 	printf("%s\n", img.addr);
 	
-	test.img = canvas->map->block_map[0][0].img->img;
 	test.addr = mlx_get_data_addr(test.img, &test.bits_per_pixel, &test.line_length, &test.endian);
-	printf("bits per pixel: %d et taille de line: %d\n", test.bits_per_pixel, test.line_length);
-	for (int y = 0; y < 48; y++)
-	{
-		for (int x = 0; x < 48; x++)
-		{
-			int pixel = y * test.line_length + x * (test.bits_per_pixel / 8);
-			my_mlx_pixel_put(&img, x, y, *(int *)(test.addr + pixel));
-		}
-	}
-	/*
+	
 	for (int i = 0; i < canvas->map->line_nb; i++)
 	{
 		for (int j = 0; j < canvas->map->row_nb; j++)
 		{
-
+			for (int y = 0; y < 48; y++)
+			{
+				for (int x = 0; x < 48; x++)
+				{
+					test.img = canvas->map->block_map[i][j].img->img;
+					test.addr = mlx_get_data_addr(test.img, &test.bits_per_pixel, &test.line_length, &test.endian);
+					int pixel = y * test.line_length + x * (test.bits_per_pixel / 8);
+					my_mlx_pixel_put(&img, x, y, *(int *)(test.addr + pixel));
+				}
+			}
 		}
-	}*/
+	}
 
 
-
-	
 	mlx_put_image_to_window(canvas->mlx, canvas->window, img.img, 0, 0);
 
 
