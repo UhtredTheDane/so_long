@@ -38,19 +38,6 @@ int	init_tiles_set(void *mlx, t_img **tiles_set)
 	return (1);
 }
 
-void	free_block_map(t_block **block_map, size_t index)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < index)
-	{
-		free(block_map[i]);
-		++i;
-	}
-	free(block_map);
-}
-
 int	check_block(t_map *map, char symbol, size_t i, size_t j)
 {
 	if (i == 0 || i == map->line_nb - 1 || j == 0 || j == map->row_nb - 1)
@@ -111,24 +98,6 @@ int	fill_map(t_map *map, t_block **block_map, t_queue *queue, t_img **tiles_set)
 	return (1);
 }
 
-int	create_2d_tab(t_map *map, t_block **block_map)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < map->line_nb)
-	{
-		block_map[i] = malloc(sizeof(t_block) * map->row_nb);
-		if (!block_map[i])
-		{
-			if (i > 0)
-				free_block_map(block_map, i);
-			return (0);
-		}
-		++i;
-	}
-	return (1);
-}
 
 int	init_block_map(void *mlx, t_map *map, t_queue *queue, t_img **tiles_set)
 {
@@ -146,16 +115,6 @@ int	init_block_map(void *mlx, t_map *map, t_queue *queue, t_img **tiles_set)
 		return (0);
 	}
 	return (1);
-}
-
-void	init_map(t_map *new_map, size_t line_nb, size_t row_nb)
-{
-	new_map->line_nb = line_nb;
-	new_map->row_nb = row_nb;
-	new_map->collectibles_nb = 0;
-	new_map->empty_nb= line_nb * row_nb;
-	new_map->player = NULL;
-	new_map->exit = NULL;
 }
 
 t_map	*create_map(void *mlx, t_queue *queue, size_t line_nb, size_t row_nb)

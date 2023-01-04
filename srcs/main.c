@@ -12,6 +12,7 @@
 
 #include "../includes/so_long.h"
 #include "../includes/data.h"
+#include <X11/keysym.h>
 
 int	check_format(char *file_name)
 {
@@ -73,6 +74,28 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
+int	close_window(int keycode, t_canvas *canvas)
+{
+	if (keycode == XK_Escape)
+	{
+		mlx_destroy_window(canvas->mlx, canvas->window);
+		mlx_destroy_display(canvas->mlx);
+		free(canvas->mlx);
+		free(canvas);	
+		exit(0);
+	}
+}
+
+int	close_window2(t_canvas *canvas)
+{
+
+	mlx_destroy_window(canvas->mlx, canvas->window);
+	mlx_destroy_display(canvas->mlx);
+	free(canvas->mlx);
+	free(canvas);
+	exit(0);
+}
+
 //ne pas oublier fermeture plus free
 int	main(int argc, char **argv)
 {
@@ -98,6 +121,9 @@ int	main(int argc, char **argv)
 	if (!canvas)
 		return (0);
 	
+	
+	
+	
 	img.img = mlx_new_image(canvas->mlx, canvas->map->row_nb * 48, canvas->map->line_nb * 48);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);	int pixel;		
 	for (int i = 0; i < canvas->map->line_nb; i++)
@@ -117,10 +143,10 @@ int	main(int argc, char **argv)
 			}
 		}
 	}
-
-
 	mlx_put_image_to_window(canvas->mlx, canvas->window, img.img, 0, 0);
-
+	
+	mlx_key_hook(canvas->window, close_window, canvas);
+	mlx_hook(canvas->window, 17, 0, close_window2, canvas);
 
 	mlx_loop(canvas->mlx);
 	return (0);
