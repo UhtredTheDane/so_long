@@ -96,6 +96,50 @@ int	close_window2(t_canvas *canvas)
 	exit(0);
 }
 
+void show_block(t_canvas *canvas, t_data *background, size_t i, size_t j)
+{
+	t_data block;
+	size_t	y;
+	size_t	x;
+	int	pixel;
+
+	y = 0;
+	while (y < 48)
+	{
+		x = 0;
+		while (x < 48)
+		{
+			block.img = canvas->map->block_map[i][j].img->img;
+			block.addr = mlx_get_data_addr(block.img, &block.bits_per_pixel, &block.line_length, &block.endian);
+			pixel = y * block.line_length + x * (block.bits_per_pixel / 8);
+			my_mlx_pixel_put(background, x + 48 * j , y + 48 * i, *(int *)(block.addr + pixel));
+			++x;
+		}
+		++y;
+	}
+}
+void show_map(t_canvas *canvas)
+{
+	t_data background;
+	size_t	i;
+	size_t	j;
+
+	background.img = mlx_new_image(canvas->mlx, canvas->map->row_nb * 48, canvas->map->line_nb * 48);
+	background.addr = mlx_get_data_addr(background.img, &background.bits_per_pixel, &background.line_length, &background.endian);	
+	i = 0;
+	while (i < canvas->map->line_nb)
+	{
+		j = 0;
+		while (j < canvas->map->row_nb)
+		{
+			show_block(canvas, &background, i, j);
+			++j;
+		}
+		++i;
+	}
+	mlx_put_image_to_window(canvas->mlx, canvas->window, background.img, 0, 0);
+}
+
 //ne pas oublier fermeture plus free
 int	main(int argc, char **argv)
 {
@@ -103,7 +147,6 @@ int	main(int argc, char **argv)
 	t_canvas	*canvas;
 	t_queue *queue;
 	size_t row_nb;
-	t_data img, test;
 
 
 	if (argc != 2)
@@ -122,28 +165,7 @@ int	main(int argc, char **argv)
 		return (0);
 	
 	
-	
-	
-	img.img = mlx_new_image(canvas->mlx, canvas->map->row_nb * 48, canvas->map->line_nb * 48);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);	int pixel;		
-	for (int i = 0; i < canvas->map->line_nb; i++)
-	{
-		for (int j = 0; j < canvas->map->row_nb; j++)
-		{
-			pixel = 0;
-			for (int y = 0; y < 48; y++)
-			{
-				for (int x = 0; x < 48; x++)
-				{
-					test.img = canvas->map->block_map[i][j].img->img;
-					test.addr = mlx_get_data_addr(test.img, &test.bits_per_pixel, &test.line_length, &test.endian);
-					pixel = y * test.line_length + x * (test.bits_per_pixel / 8);
-					my_mlx_pixel_put(&img, x + 48 * j , y + 48 * i, *(int *)(test.addr + pixel));
-				}
-			}
-		}
-	}
-	mlx_put_image_to_window(canvas->mlx, canvas->window, img.img, 0, 0);
+	show_map(canvas);
 	
 	mlx_key_hook(canvas->window, close_window, canvas);
 	mlx_hook(canvas->window, 17, 0, close_window2, canvas);

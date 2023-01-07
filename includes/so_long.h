@@ -20,8 +20,12 @@
 # include "../mlx_linux/mlx.h"
 # include "queue.h"
 # include "canvas.h"
+# include "data.h"
+
 int check_format(char	*file_name);
 size_t	ft_strlen(const char *s);
+void show_map(t_canvas *canvas);
+void show_block(t_canvas *canvas, t_data *background, size_t i, size_t j);
 
 
 #endif
