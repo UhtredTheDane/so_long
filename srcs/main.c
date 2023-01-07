@@ -74,8 +74,17 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-int	close_window(int keycode, t_canvas *canvas)
+int	keyboard_manage(int keycode, t_canvas *canvas)
 {
+	t_player *player;
+	t_data background;
+	size_t i;
+	size_t j;
+
+	player = canvas->map->player;
+	i = player->i;
+	j = player->j;
+	printf("i player: %ld et j player: %ld\n", i, j);
 	if (keycode == XK_Escape)
 	{
 		mlx_destroy_window(canvas->mlx, canvas->window);
@@ -84,6 +93,47 @@ int	close_window(int keycode, t_canvas *canvas)
 		free(canvas);	
 		exit(0);
 	}
+	else if (keycode == XK_w)
+	{
+		player->direction = 0;
+		if (canvas->map->block_map[i - 1][j].type != '1')
+		{
+			canvas->map->block_map[i][j].type = '0';
+			--player->i;
+			canvas->map->block_map[i - 1][j].type = 'P';
+		}
+	}
+	else if (keycode == XK_d)
+	{
+		player->direction = 1;
+		if (canvas->map->block_map[i][j + 1].type != '1')
+		{
+			canvas->map->block_map[i][j].type = '0';
+			++player->j;
+			canvas->map->block_map[i][j + 1].type = 'P';
+		}
+	}
+	else if (keycode == XK_s)
+	{
+		player->direction = 2;
+		if (canvas->map->block_map[i + 1][j].type != '1')
+		{
+			canvas->map->block_map[i][j].type = '0';
+			++player->i;
+			canvas->map->block_map[i + 1][j].type = 'P';
+		}
+	}
+	else if (keycode == XK_a)
+	{
+		player->direction = 3;
+		if (canvas->map->block_map[i][j - 1].type != '1')
+		{
+			canvas->map->block_map[i][j].type = '0';
+			--player->j;
+			canvas->map->block_map[i][j - 1].type = 'P';
+		}
+	}
+	show_map(canvas);
 }
 
 int	close_window2(t_canvas *canvas)
@@ -95,7 +145,42 @@ int	close_window2(t_canvas *canvas)
 	free(canvas);
 	exit(0);
 }
+int is_alpha(int color)
+{
+	return ((color >> 24)& 0xFF);
+}
 
+void show_player(t_canvas *canvas, t_data *background, size_t i, size_t j)
+{
+	t_data player;
+	int pixel;
+	size_t x;
+	size_t y;
+
+	if (canvas->map->player->direction == 0)
+		player.img = canvas->map->player->sprites_set[0]->img;
+	else if (canvas->map->player->direction == 1)
+		player.img = canvas->map->player->sprites_set[1]->img;
+	else if (canvas->map->player->direction == 2)
+		player.img = canvas->map->player->sprites_set[2]->img;
+	else
+		player.img = canvas->map->player->sprites_set[3]->img;
+	player.addr = mlx_get_data_addr(player.img, &player.bits_per_pixel, &player.line_length, &player.endian);
+	pixel = 0;
+	y = 0;
+	while (y < 40)
+	{
+		x = 0;
+		while (x < 17)
+		{
+			pixel = y * player.line_length + x * (player.bits_per_pixel / 8);
+			if (!is_alpha(*(int *)(player.addr + pixel)))
+				my_mlx_pixel_put(background, x + 50 * j, y + 48 * i, *(int *)(player.addr + pixel));
+			++x;
+		}
+		++y;
+	}
+}
 void show_block(t_canvas *canvas, t_data *background, size_t i, size_t j)
 {
 	t_data block;
@@ -103,16 +188,18 @@ void show_block(t_canvas *canvas, t_data *background, size_t i, size_t j)
 	size_t	x;
 	int	pixel;
 
+	block.img = canvas->map->block_map[i][j].img->img;
+	block.addr = mlx_get_data_addr(block.img, &block.bits_per_pixel, &block.line_length, &block.endian);
 	y = 0;
 	while (y < 48)
 	{
 		x = 0;
 		while (x < 48)
 		{
-			block.img = canvas->map->block_map[i][j].img->img;
-			block.addr = mlx_get_data_addr(block.img, &block.bits_per_pixel, &block.line_length, &block.endian);
 			pixel = y * block.line_length + x * (block.bits_per_pixel / 8);
 			my_mlx_pixel_put(background, x + 48 * j , y + 48 * i, *(int *)(block.addr + pixel));
+			if (canvas->map->block_map[i][j].type == 'P')
+				show_player(canvas, background, i, j);
 			++x;
 		}
 		++y;
@@ -138,6 +225,7 @@ void show_map(t_canvas *canvas)
 		++i;
 	}
 	mlx_put_image_to_window(canvas->mlx, canvas->window, background.img, 0, 0);
+	free(background.img);
 }
 
 //ne pas oublier fermeture plus free
@@ -166,8 +254,8 @@ int	main(int argc, char **argv)
 	
 	
 	show_map(canvas);
-	
-	mlx_key_hook(canvas->window, close_window, canvas);
+	//mlx_put_image_to_window(canvas->mlx, canvas->window, canvas->map->player->sprites_set[0]->img, 0, 0);
+	mlx_key_hook(canvas->window, keyboard_manage, canvas);
 	mlx_hook(canvas->window, 17, 0, close_window2, canvas);
 
 	mlx_loop(canvas->mlx);

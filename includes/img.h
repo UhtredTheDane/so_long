@@ -28,6 +28,6 @@ typedef struct s_img
 
 t_img	*init_new_img(void *mlx, char *path);
 void	free_img(void *mlx, t_img *img);
-void	free_tiles_set(void *mlx, t_img **tiles_set, size_t size_tiles_set);
+void	free_set(void *mlx, t_img **set, size_t size_set);
 
 #endif

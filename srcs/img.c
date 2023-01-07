@@ -36,14 +36,14 @@ void	free_img(void *mlx, t_img *img)
 	free(img);
 }
 
-void	free_tiles_set(void *mlx, t_img **tiles_set, size_t size_tiles_set)
+void	free_set(void *mlx, t_img **set, size_t size_set)
 {
 	size_t	i;
 
 	i = 0;
-	while (i < size_tiles_set)
+	while (i < size_set)
 	{
-		free_img(mlx, tiles_set[i]);
+		free_img(mlx, set[i]);
 		++i;
 	}
 }
