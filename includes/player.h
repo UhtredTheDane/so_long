@@ -4,7 +4,6 @@
 # include <stddef.h>
 # include "../mlx_linux/mlx.h"
 # include "img.h"
-# include "map.h"
 
 typedef struct s_player
 {
@@ -16,7 +15,5 @@ typedef struct s_player
 }	t_player;
 
 t_player *init_player(void *mlx, size_t i, size_t j);
-void move_player(t_map *map, t_player *player, size_t direction);
-void make_move(t_map **map, t_player *player, size_t i, size_t j);
 
 #endif
