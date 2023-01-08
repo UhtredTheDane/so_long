@@ -7,6 +7,8 @@
 # include "map.h"
 # include "canvas.h"
 
+typedef struct s_canvas t_canvas;
+
 typedef struct s_player
 {
 	size_t	i;
