@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
-#include "../includes/data.h"
-#include <X11/keysym.h>
 
 int	close_window(t_canvas *canvas)
 {
@@ -52,7 +50,7 @@ int	main(int argc, char **argv)
 	show_map(canvas);
 	//mlx_put_image_to_window(canvas->mlx, canvas->window, canvas->map->player->sprites_set[0]->img, 0, 0);
 	mlx_key_hook(canvas->window, keyboard_manage, canvas);
-	mlx_hook(canvas->window, 17, 0, close_window2, canvas);
+	mlx_hook(canvas->window, 17, 0, close_window, canvas);
 	mlx_loop(canvas->mlx);
 
 	return (0);

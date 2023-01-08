@@ -4,7 +4,7 @@
 # include <stddef.h>
 # include "block.h"
 # include "map.h"
-# include "utils.h"
+# include "so_long.h"
 
 int	check_format(char *file_name);
 int	check_row_nb(char *line, size_t *row_nb);

@@ -17,8 +17,11 @@
 # include <stddef.h>
 # include <stdio.h>
 # include "../mlx_linux/mlx.h"
+#include <X11/keysym.h>
 # include "canvas.h"
 # include "data.h"
+# include "checks.h"
+# include "show.h"
 
 
 int	keyboard_manage(int keycode, t_canvas *canvas);
