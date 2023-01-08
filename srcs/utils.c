@@ -12,29 +12,32 @@
 
 #include "../includes/so_long.h"
 
-/*
- * Description:
- *
- * Copy up to size - 1 characters form the NUL-terminated string src to dst, 
- * NUL-terminating the result.
- */
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+int	keyboard_manage(int keycode, t_canvas *canvas)
 {
-	size_t	i;
+	t_data background;
 
-	i = 0;
-	if (size > 0)
+	if (keycode == XK_Escape)
 	{
-		while (i < size - 1 && *(src + i))
-		{
-			*(dst + i) = *(src + i);
-			i++;
-		}
-		*(dst + i) = '\0';
+		mlx_destroy_window(canvas->mlx, canvas->window);
+		mlx_destroy_display(canvas->mlx);
+		free(canvas->mlx);
+		free(canvas);
+		exit(0);
 	}
-	while (*(src + i))
-		i++;
-	return (i);
+	else if (keycode == XK_w)
+		move_player(canvas->map, canvas->map->player, 0);
+	else if (keycode == XK_d)
+		move_player(canvas->map, canvas->map->player, 1);
+	else if (keycode == XK_s)
+		move_player(canvas->map, canvas->map->player, 2);
+	else if (keycode == XK_a)
+		move_player(canvas->map, canvas->map->player, 3);
+	show_map(canvas);
+}
+
+int is_alpha(int color)
+{
+	return ((color >> 24)& 0xFF);
 }
 
 /*
@@ -52,4 +55,12 @@ size_t	ft_strlen(const char *s)
 	while (*(s + length))
 		length++;
 	return (length);
+}
+
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
 }

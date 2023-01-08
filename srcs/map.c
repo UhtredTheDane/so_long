@@ -43,40 +43,6 @@ t_img	**init_tiles_set(void *mlx)
 	return (tiles_set);
 }
 
-int	check_block(void *mlx, t_map *map, char symbol, size_t *position)
-{
-	size_t i;
-	size_t j;
-
-	i = position[0];
-	j = position[1];
-	if (i == 0 || i == map->line_nb - 1 || j == 0 || j == map->row_nb - 1)
-		return (symbol == '1');
-	else if (symbol == 'P')
-	{
-		if (!map->player)
-		{
-			map->player = init_player(mlx, i, j);
-			return (1);
-		}
-		else
-			return (0);
-	}
-	else if (symbol == 'E')
-	{
-		if (!map->exit)
-		{
-			map->exit = &map->block_map[i][j];
-			return (1);
-		}
-		else
-			return (0);
-	}
-	else if (symbol == 'C')
-		map->collectibles_nb++;
-	return (1);
-}
-
 int	fill_map(void *mlx, t_map *map, t_block **block_map, t_queue *queue)
 {
 	size_t	i;
@@ -102,7 +68,6 @@ int	fill_map(void *mlx, t_map *map, t_block **block_map, t_queue *queue)
 		return (0);
 	return (1);
 }
-
 
 int	init_block_map(void *mlx, t_map *map, t_queue *queue)
 {
