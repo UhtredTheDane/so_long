@@ -58,6 +58,7 @@ void make_move(t_canvas *canvas, t_player *player, size_t i, size_t j)
 		if (canvas->map->block_map[i][j].type == 'C')
 		{
 			canvas->map->block_map[i][j].type = '0';
+			canvas->
 			--canvas->map->collectibles_nb;
 		}
 		else if (canvas->map->block_map[i][j].type == 'E')	
@@ -65,6 +66,7 @@ void make_move(t_canvas *canvas, t_player *player, size_t i, size_t j)
 			if (!canvas->map->collectibles_nb)
 			{
 				canvas->map->block_map[i][j].type = 'P';
+				canvas->map->block_map[i][j].img = canvas->map->tiles_set[0]->img;
 				show_map(canvas);
 				printf("Bravo, vous avez gagné !\n");
 				exit(0);
@@ -72,6 +74,7 @@ void make_move(t_canvas *canvas, t_player *player, size_t i, size_t j)
 			}
 		}
 		canvas->map->block_map[i][j].type = 'P';
+		++player->moves_nb;
 		printf("Vous avez fait %ld mouvements.\n", player->moves_nb);
 	} 
 }
