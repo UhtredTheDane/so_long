@@ -58,7 +58,7 @@ void make_move(t_canvas *canvas, t_player *player, size_t i, size_t j)
 		if (canvas->map->block_map[i][j].type == 'C')
 		{
 			canvas->map->block_map[i][j].type = '0';
-			canvas->map->block_map[i][j].img->img = canvas->map->tiles_set[0]->img;
+			canvas->map->block_map[i][j].img = canvas->map->tiles_set[0];
 			--canvas->map->collectibles_nb;
 		}
 		else if (canvas->map->block_map[i][j].type == 'E')	
