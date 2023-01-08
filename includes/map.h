@@ -47,7 +47,5 @@ void rec_fill(t_block **block_map, int i, int j);
 int	create_2d_tab(t_map *map, t_block **block_map);
 void	init_map(t_map *new_map, size_t line_nb, size_t row_nb);
 t_queue	*load_map_in_queue(int map_fd, size_t *row_nb);
-void move_player(t_map *map, t_player *player, size_t direction);
-void make_move(t_map *map, t_player *player, size_t i, size_t j);
 
 #endif

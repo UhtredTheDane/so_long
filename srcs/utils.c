@@ -25,13 +25,13 @@ int	keyboard_manage(int keycode, t_canvas *canvas)
 		exit(0);
 	}
 	else if (keycode == XK_w)
-		move_player(canvas->map, canvas->map->player, 0);
+		move_player(canvas, canvas->map->player, 0);
 	else if (keycode == XK_d)
-		move_player(canvas->map, canvas->map->player, 1);
+		move_player(canvas, canvas->map->player, 1);
 	else if (keycode == XK_s)
-		move_player(canvas->map, canvas->map->player, 2);
+		move_player(canvas, canvas->map->player, 2);
 	else if (keycode == XK_a)
-		move_player(canvas->map, canvas->map->player, 3);
+		move_player(canvas, canvas->map->player, 3);
 	show_map(canvas);
 }
 

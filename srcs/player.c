@@ -35,43 +35,43 @@ t_player *init_player(void *mlx, size_t i, size_t j)
 	return (player);
 }
 
-void move_player(t_map *map, t_player *player, size_t direction)
+void move_player(t_canvas *canvas, t_player *player, size_t direction)
 {
 	player->direction = direction;
 	if (direction == 0)
-		make_move(map, player, player->i - 1, player->j);
+		make_move(canvas, player, player->i - 1, player->j);
 	else if (direction == 1)
-		make_move(map, player, player->i, player->j + 1);
+		make_move(canvas, player, player->i, player->j + 1);
 	else if (direction == 2)
-		make_move(map, player, player->i + 1, player->j);
+		make_move(canvas, player, player->i + 1, player->j);
 	else
-		make_move(map, player, player->i, player->j - 1);
+		make_move(canvas, player, player->i, player->j - 1);
 }
 
-void make_move(t_map *map, t_player *player, size_t i, size_t j)
+void make_move(t_canvas *canvas, t_player *player, size_t i, size_t j)
 {
-	if (map->block_map[i][j].type != '1')
+	if (canvas->map->block_map[i][j].type != '1')
 	{
-		map->block_map[player->i][player->j].type = '0';
+		canvas->map->block_map[player->i][player->j].type = '0';
 		player->i = i;
 		player->j = j;
-		if (map->block_map[i][j].type == 'C')
+		if (canvas->map->block_map[i][j].type == 'C')
 		{
-			map->block_map[i][j].type = '0';
-			--map->collectibles_nb;
+			canvas->map->block_map[i][j].type = '0';
+			--canvas->map->collectibles_nb;
 		}
-		else if (map->block_map[i][j].type == 'E')	
+		else if (canvas->map->block_map[i][j].type == 'E')	
 		{
-			if (!map->collectibles_nb)
+			if (!canvas->map->collectibles_nb)
 			{
-				map->block_map[i][j].type = 'P';
+				canvas->map->block_map[i][j].type = 'P';
 				show_map(canvas);
 				printf("Bravo, vous avez gagné !\n");
 				exit(0);
 				//clean_exit()
 			}
 		}
-		map->block_map[i][j].type = 'P';
+		canvas->map->block_map[i][j].type = 'P';
 		printf("Vous avez fait %ld mouvements.\n", player->moves_nb);
 	} 
 }
