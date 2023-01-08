@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:00:21 by agengemb          #+#    #+#             */
-/*   Updated: 2022/12/19 14:01:09 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/01/08 04:58:45 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include "checks.h"
 # include "show.h"
 
+typedef struct s_canvas t_canvas;
 
 int	keyboard_manage(int keycode, t_canvas *canvas);
 int is_alpha(int color);

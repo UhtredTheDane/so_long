@@ -4,6 +4,7 @@
 # include <stddef.h>
 # include "../mlx_linux/mlx.h"
 # include "img.h"
+# include "map.h"
 
 typedef struct s_player
 {

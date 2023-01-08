@@ -7,6 +7,8 @@
 # include "data.h"
 # include "so_long.h"
 
+typedef struct s_canvas t_canvas;
+
 void show_player(t_canvas *canvas, t_data *background, size_t i, size_t j);
 void show_block(t_canvas *canvas, t_data *background, size_t i, size_t j);
 void show_map(t_canvas *canvas);

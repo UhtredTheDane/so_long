@@ -48,7 +48,7 @@ void move_player(t_map *map, t_player *player, size_t direction)
 		make_move(map, player, player->i, player->j - 1);
 }
 
-void make_move(t_map **map, t_player *player, size_t i, size_t j)
+void make_move(t_map *map, t_player *player, size_t i, size_t j)
 {
 	if (map->block_map[i][j].type != '1')
 	{
@@ -66,12 +66,12 @@ void make_move(t_map **map, t_player *player, size_t i, size_t j)
 			{
 				map->block_map[i][j].type = 'P';
 				show_map(canvas);
-				ft_printf("Bravo, vous avez gagné !\n");
+				printf("Bravo, vous avez gagné !\n");
 				exit(0);
 				//clean_exit()
 			}
 		}
 		map->block_map[i][j].type = 'P';
-		ft_printf("Vous avez fait %ld mouvements.\n", player->moves_nb);
+		printf("Vous avez fait %ld mouvements.\n", player->moves_nb);
 	} 
 }

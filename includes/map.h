@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:41:13 by agengemb          #+#    #+#             */
-/*   Updated: 2022/12/30 20:20:18 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/01/08 05:00:51 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include "player.h"
 # include "checks.h"
 # include "so_long.h"
+
+typedef struct s_player t_player;
 
 typedef struct s_map
 {
@@ -46,6 +48,6 @@ int	create_2d_tab(t_map *map, t_block **block_map);
 void	init_map(t_map *new_map, size_t line_nb, size_t row_nb);
 t_queue	*load_map_in_queue(int map_fd, size_t *row_nb);
 void move_player(t_map *map, t_player *player, size_t direction);
-void make_move(t_map **map, t_player *player, size_t i, size_t j);
+void make_move(t_map *map, t_player *player, size_t i, size_t j);
 
 #endif
