@@ -18,11 +18,10 @@
 typedef struct s_block
 {
 	char	type;
-	int	can_be_crossed;
 	t_img	*img;
 }			t_block;
 
-int init_block(t_block *block, char symbol, t_img **tiles_set);
+void init_block(t_block *block, char symbol, t_img **tiles_set);
 void	free_block_map(t_block **block_map, size_t index);
 
 #endif

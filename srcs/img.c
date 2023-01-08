@@ -41,9 +41,10 @@ void	free_set(void *mlx, t_img **set, size_t size_set)
 	size_t	i;
 
 	i = 0;
-	while (i < size_set)
+	while (set[i] && i < size_set)
 	{
 		free_img(mlx, set[i]);
 		++i;
 	}
+	free(set);
 }

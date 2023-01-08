@@ -8,10 +8,17 @@ t_block **copy(t_map *map, t_block **block_map)
 	t_block **back;
 
 	back = malloc(sizeof(t_block *) * map->line_nb);
+	if (!back)
+		return (NULL);
 	i = 0;
 	while (i < map->line_nb)
 	{
 		back[i] = malloc(sizeof(t_block) * map->row_nb);
+		if (!back[i])
+		{
+			free_block_map(back, i);
+			return (NULL);
+		}
 		j = 0;
 		while (j < map->row_nb)
 		{
@@ -46,8 +53,7 @@ int	create_2d_tab(t_map *map, t_block **block_map)
 		block_map[i] = malloc(sizeof(t_block) * map->row_nb);
 		if (!block_map[i])
 		{
-			if (i > 0)
-				free_block_map(block_map, i);
+			free_block_map(block_map, i);
 			return (0);
 		}
 		++i;
@@ -55,13 +61,32 @@ int	create_2d_tab(t_map *map, t_block **block_map)
 	return (1);
 }
 
-void	init_map(t_map *new_map, size_t line_nb, size_t row_nb)
+int	fill_map(void *mlx, t_map *map, t_block **block_map, t_queue *queue)
 {
-	new_map->line_nb = line_nb;
-	new_map->row_nb = row_nb;
-	new_map->collectibles_nb = 0;
-	new_map->player = NULL;
-	new_map->exit = NULL;
+	char	*line;
+	size_t position[2];
+
+	position[0] = 0;
+	while (position[0] < map->line_nb)
+	{
+		line = queue->content;
+		position[1] = 0;
+		while (position[1] < map->row_nb)
+		{
+			if (!check_block(mlx, map, line[position[1]], position))
+				return (0);
+			init_block(&block_map[position[0]][position[1]], line[position[1]], map->tiles_set);
+			++position[1];
+		}
+		queue_pop(&queue);
+		++position[0];
+	}
+	if (!check_path(map, block_map, map->player->i, map->player->j))
+	{
+		ft_printf("Error\nIl n'existe pas de chemin valide\n");
+		return (0);
+	}
+	return (1);
 }
 
 t_queue	*load_map_in_queue(int map_fd, size_t *row_nb)

@@ -29,6 +29,7 @@ int	keyboard_manage(int keycode, t_canvas *canvas);
 int is_alpha(int color);
 size_t	ft_strlen(const char *s);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-int	close_window(t_canvas *canvas);
+void    free_queue(t_queue *queue);
+int close_window(t_canvas *canvas);
 
 #endif

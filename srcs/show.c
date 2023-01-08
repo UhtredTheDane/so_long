@@ -55,6 +55,7 @@ void show_block(t_canvas *canvas, t_data *background, size_t i, size_t j)
 		}
 		++y;
 	}
+	mlx_destroy_image(canvas->mlx, block.img);
 }
 
 void show_map(t_canvas *canvas)
@@ -77,5 +78,5 @@ void show_map(t_canvas *canvas)
 		++i;
 	}
 	mlx_put_image_to_window(canvas->mlx, canvas->window, background.img, 0, 0);
-	free(background.img);
+	mlx_destroy_image(canvas->mlx, background.img);
 }
