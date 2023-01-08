@@ -5,7 +5,7 @@
 # include "../mlx_linux/mlx.h"
 # include "canvas.h"
 # include "data.h"
-# include "utils.h"
+# include "so_long.h"
 
 void show_player(t_canvas *canvas, t_data *background, size_t i, size_t j);
 void show_block(t_canvas *canvas, t_data *background, size_t i, size_t j);

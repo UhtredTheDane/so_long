@@ -22,6 +22,8 @@
 # include "block.h"
 # include "queue.h"
 # include "player.h"
+# include "checks.h"
+# include "so_long.h"
 
 typedef struct s_map
 {
