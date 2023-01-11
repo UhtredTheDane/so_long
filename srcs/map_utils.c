@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/11 04:36:45 by agengemb          #+#    #+#             */
+/*   Updated: 2023/01/11 05:51:04 by agengemb         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/map.h"
 
-t_block **copy(t_map *map, t_block **block_map)
+t_block	**copy(t_map *map, t_block **block_map)
 {
-	size_t i;
-	size_t j;
-	t_block **back;
+	size_t	i;
+	size_t	j;
+	t_block	**back;
 
 	back = malloc(sizeof(t_block *) * map->line_nb);
 	if (!back)
@@ -29,12 +41,12 @@ t_block **copy(t_map *map, t_block **block_map)
 	return (back);
 }
 
-void rec_fill(t_block **block_map, int i, int j)
+void	rec_fill(t_block **block_map, int i, int j)
 {
 	block_map[i][j].type = 'G';
-	if (block_map[i-1][j].type != 'G' && block_map[i-1][j].type != '1')
+	if (block_map[i - 1][j].type != 'G' && block_map[i - 1][j].type != '1')
 		rec_fill(block_map, i - 1, j);
-	if (block_map[i+1][j].type != 'G' && block_map[i+1][j].type != '1')
+	if (block_map[i + 1][j].type != 'G' && block_map[i + 1][j].type != '1')
 		rec_fill(block_map, i + 1, j);
 	if (block_map[i][j + 1].type != 'G' && block_map[i][j + 1].type != '1')
 		rec_fill(block_map, i, j + 1);
@@ -63,7 +75,7 @@ int	create_2d_tab(t_map *map, t_block **block_map)
 int	fill_map(void *mlx, t_map *map, t_block **block_map, t_queue *queue)
 {
 	char	*line;
-	size_t position[2];
+	size_t	position[2];
 
 	position[0] = 0;
 	while (position[0] < map->line_nb)
@@ -72,9 +84,11 @@ int	fill_map(void *mlx, t_map *map, t_block **block_map, t_queue *queue)
 		position[1] = 0;
 		while (position[1] < map->row_nb)
 		{
+			printf("i: %ld et j : %ld\n", position[0], position[1]);
 			if (!check_block(mlx, map, line[position[1]], position))
-				return (0);
-			init_block(&block_map[position[0]][position[1]], line[position[1]], map->tiles_set);
+				return (0);	
+			init_block(&block_map[position[0]][position[1]],
+				line[position[1]], map->tiles_set);
 			++position[1];
 		}
 		queue_pop(&queue);

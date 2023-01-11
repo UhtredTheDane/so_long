@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:41:05 by agengemb          #+#    #+#             */
-/*   Updated: 2023/01/11 01:43:17 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/01/11 05:47:01 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ t_img	**init_tiles_set(void *mlx)
 	tiles_set = malloc(sizeof(t_img) * 4);
 	if (!tiles_set)
 		return (NULL);
-	tiles_set[0] = init_new_img(mlx, "Images/Tiles/XPM/Ground.xpm");
-	tiles_set[1] = init_new_img(mlx, "Images/Tiles/XPM/Wall.xpm");
-	tiles_set[2] = init_new_img(mlx, "Images/Tiles/XPM/Collectible.xpm");
-	tiles_set[3] = init_new_img(mlx, "Images/Tiles/XPM/Exit.xpm");
+	tiles_set[0] = init_img(mlx, "Images/Tiles/XPM/Ground.xpm");
+	tiles_set[1] = init_img(mlx, "Images/Tiles/XPM/Wall.xpm");
+	tiles_set[2] = init_img(mlx, "Images/Tiles/XPM/Collectible.xpm");
+	tiles_set[3] = init_img(mlx, "Images/Tiles/XPM/Exit.xpm");
 	if (!tiles_set[0] || !tiles_set[1] || !tiles_set[2] || !tiles_set[3])
 	{
 		free_set(mlx, tiles_set, 4);
@@ -39,8 +39,8 @@ int	init_block_map(void *mlx, t_map *map, t_queue *queue)
 	if (!block_map || !create_2d_tab(map, block_map))
 		return (0);
 	map->block_map = block_map;
-	if(!fill_map(mlx, map, block_map, queue) || !map->collectibles_nb
-	|| !map->player || !map->exit)
+	if (!fill_map(mlx, map, block_map, queue) || !map->collectibles_nb
+		|| !map->player || !map->exit)
 	{
 		free_block_map(block_map, map->line_nb);
 		if (!map->player)
@@ -77,7 +77,6 @@ t_map	*init_map(void *mlx, size_t line_nb, size_t row_nb)
 t_map	*create_map(void *mlx, t_queue *queue, size_t line_nb, size_t row_nb)
 {
 	t_map	*new_map;
-	size_t	i;
 
 	new_map = init_map(mlx, line_nb, row_nb);
 	if (!new_map)

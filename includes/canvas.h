@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:43:38 by agengemb          #+#    #+#             */
-/*   Updated: 2023/01/08 04:57:42 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/01/11 04:59:47 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@
 # include "map.h"
 # include "queue.h"
 
-typedef struct s_map t_map;
+typedef struct s_map	t_map;
 
 typedef struct s_canvas
 {
-	void *mlx;
-	void *window;	
+	void	*mlx;
+	void	*window;	
 	t_map	*map;
 }			t_canvas;
 
-t_canvas *create_canvas(t_queue *queue, size_t line_nb, size_t  row_nb);
+t_canvas	*create_canvas(t_queue *queue, size_t line_nb, size_t row_nb);
 
 #endif

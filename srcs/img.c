@@ -6,13 +6,13 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:28:55 by agengemb          #+#    #+#             */
-/*   Updated: 2022/12/19 16:26:41 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/01/11 04:57:36 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/img.h"
 
-t_img	*init_new_img(void *mlx, char *path)
+t_img	*init_img(void *mlx, char *path)
 {
 	t_img	*new_img;
 
@@ -41,9 +41,10 @@ void	free_set(void *mlx, t_img **set, size_t size_set)
 	size_t	i;
 
 	i = 0;
-	while (set[i] && i < size_set)
+	while (i < size_set)
 	{
-		free_img(mlx, set[i]);
+		if (set[i])
+			free_img(mlx, set[i]);
 		++i;
 	}
 	free(set);

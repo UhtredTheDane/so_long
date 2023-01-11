@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:43:39 by agengemb          #+#    #+#             */
-/*   Updated: 2022/12/19 17:21:59 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/01/11 05:45:25 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_canvas	*create_canvas(t_queue *queue, size_t line_nb, size_t row_nb)
 		free(new_canvas);
 		return (NULL);
 	}
+	printf("salut toi\n");
 	new_canvas->map = create_map(new_canvas->mlx, queue, line_nb, row_nb);
 	if (!new_canvas->map)
 	{

@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:23:34 by agengemb          #+#    #+#             */
-/*   Updated: 2022/12/19 16:29:52 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/01/11 04:08:51 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	queue_pop(t_queue **queue)
 	if (queue && *queue)
 	{
 		elem = (*queue)->next;
+		free((*queue)->content);
 		free(*queue);
 		*queue = elem;
 	}

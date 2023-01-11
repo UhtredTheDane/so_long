@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 22:12:57 by agengemb          #+#    #+#             */
-/*   Updated: 2023/01/11 01:45:29 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/01/11 04:48:46 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,12 @@ int	keyboard_manage(int keycode, t_canvas *canvas)
 	else if (keycode == XK_a)
 		move_player(canvas, canvas->map->player, 3);
 	show_map(canvas);
+	return (0);
 }
 
-int is_alpha(int color)
+int	is_alpha(int color)
 {
-	return ((color >> 24)& 0xFF);
+	return ((color >> 24) & 0xFF);
 }
 
 /*
@@ -54,10 +55,10 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	char	*dst;
 
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	*(unsigned int *)dst = color;
 }
 
-void free_queue(t_queue *queue)
+void	free_queue(t_queue *queue)
 {
 	while (!queue)
 		queue_pop(&queue);

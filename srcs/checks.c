@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   checks.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/11 04:20:20 by agengemb          #+#    #+#             */
+/*   Updated: 2023/01/11 05:52:27 by agengemb         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/checks.h"
 
 int	check_format(char *file_name)
@@ -40,7 +52,8 @@ int	check_player(void *mlx, t_map *map, size_t *p_block)
 
 int	check_block(void *mlx, t_map *map, char symbol, size_t *p_block)
 {
-	if (p_block[0] == 0 || p_block[0] == map->line_nb - 1 || p_block[1] == 0 || p_block[1] == map->row_nb - 1)
+	if (p_block[0] == 0 || p_block[0] == map->line_nb - 1 || p_block[1] == 0
+		|| p_block[1] == map->row_nb - 1)
 		return (symbol == '1');
 	else if (symbol == 'P')
 		return (check_player(mlx, map, p_block));
@@ -63,31 +76,31 @@ int	check_block(void *mlx, t_map *map, char symbol, size_t *p_block)
 	return (0);
 }
 
-int check_path(t_map *map, t_block **block_map, int i_start, int j_start)
+int	check_path(t_map *map, t_block **block_map, int i_start, int j_start)
 {
-	t_block **tempo_block_map;
+	t_block	**copy_map;
 	size_t	i;
 	size_t	j;
 
-	tempo_block_map = copy(map, block_map);
-	if (!tempo_block_map)
+	copy_map = copy(map, block_map);
+	if (!copy_map)
 		return (0);
-	rec_fill(tempo_block_map, i_start, j_start);
+	rec_fill(copy_map, i_start, j_start);
 	i = 0;
 	while (i < map->line_nb)
 	{
 		j = 0;
 		while (j < map->row_nb)
 		{
-			if (tempo_block_map[i][j].type != 'G' && tempo_block_map[i][j].type != '1')
+			if (copy_map[i][j].type == 'E' && copy_map[i][j].type == 'C')
 			{
-				free_block_map(tempo_block_map, map->line_nb);
+				free_block_map(copy_map, map->line_nb);
 				return (0);
 			}
 			++j;
 		}
 		++i;
 	}
-	free_block_map(tempo_block_map, map->line_nb);
+	free_block_map(copy_map, map->line_nb);
 	return (1);
 }
