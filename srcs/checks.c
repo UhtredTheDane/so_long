@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 04:20:20 by agengemb          #+#    #+#             */
-/*   Updated: 2023/01/11 05:52:27 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/01/11 07:17:20 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	check_format(char *file_name)
 
 int	check_row_nb(char *line, size_t *row_nb)
 {
-	if (ft_strlen(line) - 1 != *row_nb)
+	if (ft_strlen2(line) - 1 != *row_nb)
 	{
 		ft_printf("Error\nLes lignes n'ont pas le même nombre de colonnes");
 		return (0);
