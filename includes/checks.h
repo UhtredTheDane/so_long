@@ -2,6 +2,7 @@
 # define CHECKS_H
 
 # include <stddef.h>
+# include "../ft_printf/includes/ft_printf.h"
 # include "block.h"
 # include "map.h"
 # include "so_long.h"

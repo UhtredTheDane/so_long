@@ -14,16 +14,8 @@
 
 int	keyboard_manage(int keycode, t_canvas *canvas)
 {
-	t_data background;
-
 	if (keycode == XK_Escape)
-	{
-		mlx_destroy_window(canvas->mlx, canvas->window);
-		mlx_destroy_display(canvas->mlx);
-		free(canvas->mlx);
-		free(canvas);
-		exit(0);
-	}
+		ft_exit(canvas);
 	else if (keycode == XK_w)
 		move_player(canvas, canvas->map->player, 0);
 	else if (keycode == XK_d)

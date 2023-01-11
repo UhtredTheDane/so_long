@@ -56,13 +56,13 @@ void make_move(t_canvas *canvas, t_player *player, size_t i, size_t j)
 			{
 				canvas->map->block_map[i][j].type = 'P';
 				show_map(canvas);
-				printf("Bravo, vous avez gagné !\n");
+				ft_printf("Bravo, vous avez gagné !\n");
 				exit(0);
 				//clean_exit()
 			}
 		}
 		canvas->map->block_map[i][j].type = 'P';
 		++player->moves_nb;
-		printf("Vous avez fait %ld mouvements.\n", player->moves_nb);
+		ft_printf("Vous avez fait %ld mouvements.\n", player->moves_nb);
 	} 
 }

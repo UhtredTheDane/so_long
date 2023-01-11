@@ -17,6 +17,7 @@
 # include <stddef.h>
 # include <stdio.h>
 # include "../mlx_linux/mlx.h"
+# include "../ft_printf/includes/ft_printf.h"
 #include <X11/keysym.h>
 # include "canvas.h"
 # include "data.h"
@@ -30,6 +31,8 @@ int is_alpha(int color);
 size_t	ft_strlen(const char *s);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void    free_queue(t_queue *queue);
+void ft_exit(t_canvas *canvas)
+int open_file(char *file_name)
 int close_window(t_canvas *canvas);
 
 #endif

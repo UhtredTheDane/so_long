@@ -3,6 +3,7 @@
 
 # include <stddef.h>
 # include "../mlx_linux/mlx.h"
+# include "../ft_printf/includes/ft_printf.h"
 # include "img.h"
 # include "map.h"
 # include "canvas.h"

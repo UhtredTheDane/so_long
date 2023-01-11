@@ -1,5 +1,17 @@
 #include "../includes/show.h"
 
+t_img *select_image(size_t direction, t_img **sprites_set)
+{
+
+	if (direction == 3)
+		return (sprites_set[3]->img);
+	else if (direction == 1)
+		return (sprites_set[1]->img);
+	else if (direction == 2)
+		return (sprites_set[2]->img);
+	return (sprites_set[0]->img);
+}
+
 void show_player(t_canvas *canvas, t_data *background, size_t i, size_t j)
 {
 	t_data player;
@@ -7,14 +19,7 @@ void show_player(t_canvas *canvas, t_data *background, size_t i, size_t j)
 	size_t x;
 	size_t y;
 
-	if (canvas->map->player->direction == 0)
-		player.img = canvas->map->player->sprites_set[0]->img;
-	else if (canvas->map->player->direction == 1)
-		player.img = canvas->map->player->sprites_set[1]->img;
-	else if (canvas->map->player->direction == 2)
-		player.img = canvas->map->player->sprites_set[2]->img;
-	else
-		player.img = canvas->map->player->sprites_set[3]->img;
+	player.img = select_image(canvas->map->player->direction, canvas->map->sprites_set);
 	player.addr = mlx_get_data_addr(player.img, &player.bits_per_pixel, &player.line_length, &player.endian);
 	pixel = 0;
 	y = 0;

@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include "../mlx_linux/mlx.h"
 # include "../get_next_line/get_next_line.h"
+# include "../ft_printf/includes/ft_printf.h"
 # include "img.h"
 # include "block.h"
 # include "queue.h"

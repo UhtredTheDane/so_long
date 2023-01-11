@@ -1,5 +1,4 @@
 #include "../includes/map.h"
-#include "../includes/block.h"
 
 t_block **copy(t_map *map, t_block **block_map)
 {
