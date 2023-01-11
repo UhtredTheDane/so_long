@@ -28,6 +28,7 @@ typedef struct s_canvas
 	t_map	*map;
 }			t_canvas;
 
+void	destroy_canvas(t_canvas *canvas);
 t_canvas	*create_canvas(t_queue *queue, size_t line_nb, size_t row_nb);
 
 #endif

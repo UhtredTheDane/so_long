@@ -6,11 +6,19 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:43:39 by agengemb          #+#    #+#             */
-/*   Updated: 2023/01/11 06:42:11 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/01/11 20:30:58 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/canvas.h"
+
+void	destroy_canvas(t_canvas *canvas)
+{
+	mlx_destroy_window(canvas->mlx, canvas->window);
+	mlx_destroy_display(canvas->mlx);
+	free(canvas->mlx);
+	free(canvas);
+}
 
 t_canvas	*create_canvas(t_queue *queue, size_t line_nb, size_t row_nb)
 {
@@ -33,9 +41,7 @@ t_canvas	*create_canvas(t_queue *queue, size_t line_nb, size_t row_nb)
 	new_canvas->map = create_map(new_canvas->mlx, queue, line_nb, row_nb);
 	if (!new_canvas->map)
 	{
-		mlx_destroy_window(new_canvas->mlx, new_canvas->window);
-		free(new_canvas->mlx);
-		free(new_canvas);
+		destroy_canvas(new_canvas);
 		return (NULL);
 	}
 	return (new_canvas);

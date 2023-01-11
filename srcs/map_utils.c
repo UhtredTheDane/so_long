@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 04:36:45 by agengemb          #+#    #+#             */
-/*   Updated: 2023/01/11 06:45:06 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/01/11 20:37:15 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,10 @@ int	fill_map(void *mlx, t_map *map, t_block **block_map, t_queue *queue)
 		queue_pop(&queue);
 		++position[0];
 	}
-	if (!check_path(map, block_map, map->player->i, map->player->j))
-	{
-		ft_printf("Error\nIl n'existe pas de chemin valide\n");
+	if (!check_min(map))
 		return (0);
-	}
+	if (!check_path(map, block_map, map->player->i, map->player->j))
+		return (0);
 	return (1);
 }
 
@@ -106,9 +105,11 @@ t_queue	*load_map_in_queue(int map_fd, size_t *row_nb)
 	char	*line;
 	t_queue	*queue;
 	t_queue	*elem;
+	int		good;
 
 	line = "";
 	queue = NULL;
+	good = 1;
 	while (line != NULL)
 	{
 		line = get_next_line(map_fd);
@@ -118,10 +119,10 @@ t_queue	*load_map_in_queue(int map_fd, size_t *row_nb)
 				*row_nb = ft_strlen2(line) - 1;
 			else
 				if (!check_row_nb(line, row_nb))
-					return (NULL);
+					good = 0;
 			elem = ft_queuenew(line);
 			queue_add(&queue, elem);
 		}
 	}
-	return (queue);
+	return (is_queue_good(queue, good));
 }

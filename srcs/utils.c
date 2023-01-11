@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 22:12:57 by agengemb          #+#    #+#             */
-/*   Updated: 2023/01/11 04:48:46 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/01/11 20:42:51 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,13 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	free_queue(t_queue *queue)
+t_queue	*is_queue_good(t_queue *queue, int good)
 {
-	while (!queue)
-		queue_pop(&queue);
+	if (good)
+		return (queue);
+	ft_printf("Error\nLes lignes n'ont pas le meme nombre de colonnes.\n");
+	free_queue(&queue);
+	if (!queue)
+		printf("coucou\n");
+	return (NULL);
 }

@@ -6,12 +6,12 @@
 #    By: agengemb <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 05:17:18 by agengemb          #+#    #+#              #
-#    Updated: 2023/01/11 05:42:55 by agengemb         ###   ########.fr        #
+#    Updated: 2023/01/11 18:35:27 by agengemb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g3
 NAME = so_long
 LIB1 = ./ft_printf/libftprintf.a
 LIB2 =./get_next_line/get_next_line.a
@@ -21,6 +21,7 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIB1) $(LIB2)
+	make -C mlx_linux
 	$(CC) $^ -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $@
 
 %.o: %.c
@@ -34,6 +35,7 @@ $(LIB2):
 clean:
 	make -C ft_printf clean
 	make -C get_next_line clean
+	make -C mlx_linux clean
 	rm -f $(LIB1)
 	rm -f $(LIB2)
 	rm -f $(OBJ)

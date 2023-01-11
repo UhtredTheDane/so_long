@@ -1,30 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   queue.h                                            :+:      :+:    :+:   */
+/*   queue_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/19 13:23:43 by agengemb          #+#    #+#             */
-/*   Updated: 2023/01/11 20:43:13 by agengemb         ###   ########.fr       */
+/*   Created: 2023/01/11 19:08:25 by agengemb          #+#    #+#             */
+/*   Updated: 2023/01/11 20:44:23 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef QUEUE_H
-# define QUEUE_H
+#include "../includes/queue.h"
 
-# include <stdlib.h>
-
-typedef struct s_queue
+void	free_queue(t_queue **queue)
 {
-	char			*content;
-	struct s_queue	*next;
-}			t_queue;
-
-t_queue	*ft_queuenew(char *content);
-void	queue_add(t_queue **queue, t_queue *new);
-void	queue_pop(t_queue **queue);
-int		ft_queuesize(t_queue *queue);
-void	free_queue(t_queue **queue);
-
-#endif
+	while (*queue)
+		queue_pop(queue);
+}

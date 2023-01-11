@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 04:20:20 by agengemb          #+#    #+#             */
-/*   Updated: 2023/01/11 07:17:20 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/01/11 19:14:30 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@ int	check_format(char *file_name)
 int	check_row_nb(char *line, size_t *row_nb)
 {
 	if (ft_strlen2(line) - 1 != *row_nb)
-	{
-		ft_printf("Error\nLes lignes n'ont pas le même nombre de colonnes");
 		return (0);
-	}
 	return (1);
 }
 
@@ -47,6 +44,7 @@ int	check_player(void *mlx, t_map *map, size_t *p_block)
 		if (map->player)
 			return (1);
 	}
+	ft_printf("Error\nIl y a plus d un joueur sur la map.\n");
 	return (0);
 }
 
@@ -54,7 +52,10 @@ int	check_block(void *mlx, t_map *map, char symbol, size_t *p_block)
 {
 	if (p_block[0] == 0 || p_block[0] == map->line_nb - 1 || p_block[1] == 0
 		|| p_block[1] == map->row_nb - 1)
-		return (symbol == '1');
+	{
+		if (symbol == '1')
+			return (1);
+	}
 	else if (symbol == 'P')
 		return (check_player(mlx, map, p_block));
 	else if (symbol == 'E')
@@ -92,11 +93,8 @@ int	check_path(t_map *map, t_block **block_map, int i_start, int j_start)
 		j = 0;
 		while (j < map->row_nb)
 		{
-			if (copy_map[i][j].type == 'E' && copy_map[i][j].type == 'C')
-			{
-				free_block_map(copy_map, map->line_nb);
+			if (!check_remaining(map, copy_map, i, j))
 				return (0);
-			}
 			++j;
 		}
 		++i;
