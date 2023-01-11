@@ -19,7 +19,7 @@ void show_player(t_canvas *canvas, t_data *background, size_t i, size_t j)
 	size_t x;
 	size_t y;
 
-	player.img = select_image(canvas->map->player->direction, canvas->map->sprites_set);
+	player.img = select_image(canvas->map->player->direction, canvas->map->player->sprites_set);
 	player.addr = mlx_get_data_addr(player.img, &player.bits_per_pixel, &player.line_length, &player.endian);
 	pixel = 0;
 	y = 0;
@@ -60,7 +60,7 @@ void show_block(t_canvas *canvas, t_data *background, size_t i, size_t j)
 		}
 		++y;
 	}
-	mlx_destroy_image(canvas->mlx, block.img);
+	//mlx_destroy_image(canvas->mlx, block.img);
 }
 
 void show_map(t_canvas *canvas)

@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:00:21 by agengemb          #+#    #+#             */
-/*   Updated: 2023/01/08 04:58:45 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/01/11 01:46:32 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ typedef struct s_canvas t_canvas;
 
 int	keyboard_manage(int keycode, t_canvas *canvas);
 int is_alpha(int color);
-size_t	ft_strlen(const char *s);
+size_t	ft_strlen2(const char *s);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void    free_queue(t_queue *queue);
-void ft_exit(t_canvas *canvas)
-int open_file(char *file_name)
+void ft_exit(t_canvas *canvas);
+int open_file(char *file_name);
 int close_window(t_canvas *canvas);
 
 #endif

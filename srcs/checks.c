@@ -27,14 +27,13 @@ int	check_row_nb(char *line, size_t *row_nb)
 	return (1);
 }
 
-int	check_player(t_map *map, size_t *p_block)
+int	check_player(void *mlx, t_map *map, size_t *p_block)
 {
 	if (!map->player)
 	{
 		map->player = init_player(mlx, p_block[0], p_block[1]);
-		if (!map->player)
-			return (0);
-		return (1);
+		if (map->player)
+			return (1);
 	}
 	return (0);
 }
@@ -44,14 +43,7 @@ int	check_block(void *mlx, t_map *map, char symbol, size_t *p_block)
 	if (p_block[0] == 0 || p_block[0] == map->line_nb - 1 || p_block[1] == 0 || p_block[1] == map->row_nb - 1)
 		return (symbol == '1');
 	else if (symbol == 'P')
-	{
-		if (!map->player)
-		{
-			map->player = init_player(mlx, p_block[0], p_block[1]);
-			if (map->player)
-				return (1);
-		}
-	}
+		return (check_player(mlx, map, p_block));
 	else if (symbol == 'E')
 	{
 		if (!map->exit)
@@ -61,8 +53,11 @@ int	check_block(void *mlx, t_map *map, char symbol, size_t *p_block)
 		}
 	}
 	else if (symbol == 'C')
+	{
 		map->collectibles_nb++;
-	else if (symbol == '1')
+		return (1);
+	}
+	else if (symbol == '1' || symbol == '0')
 		return (1);
 	ft_printf("Error\nUn blocks de la map n'est pas valide\n");
 	return (0);

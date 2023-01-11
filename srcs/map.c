@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:41:05 by agengemb          #+#    #+#             */
-/*   Updated: 2022/12/31 14:36:01 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/01/11 01:43:17 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,10 @@ int	init_block_map(void *mlx, t_map *map, t_queue *queue)
 	return (1);
 }
 
-t_map	*init_map(t_map *new_map, size_t line_nb, size_t row_nb)
+t_map	*init_map(void *mlx, size_t line_nb, size_t row_nb)
 {
 	t_map	*new_map;
+
 	new_map = malloc(sizeof(t_map));
 	if (!new_map)
 		return (NULL);
@@ -78,7 +79,7 @@ t_map	*create_map(void *mlx, t_queue *queue, size_t line_nb, size_t row_nb)
 	t_map	*new_map;
 	size_t	i;
 
-	new_map = init_map(new_map, line_nb, row_nb)
+	new_map = init_map(mlx, line_nb, row_nb);
 	if (!new_map)
 		return (NULL);
 	if (!init_block_map(mlx, new_map, queue))

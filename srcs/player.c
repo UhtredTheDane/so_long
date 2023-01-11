@@ -50,19 +50,18 @@ void make_move(t_canvas *canvas, t_player *player, size_t i, size_t j)
 			canvas->map->block_map[i][j].img = canvas->map->tiles_set[0];
 			--canvas->map->collectibles_nb;
 		}
-		else if (canvas->map->block_map[i][j].type == 'E')	
+		else if (&(canvas->map->block_map[i][j]) == canvas->map->exit)	
 		{
 			if (!canvas->map->collectibles_nb)
 			{
 				canvas->map->block_map[i][j].type = 'P';
 				show_map(canvas);
 				ft_printf("Bravo, vous avez gagné !\n");
-				exit(0);
-				//clean_exit()
+				ft_exit(canvas);
 			}
 		}
 		canvas->map->block_map[i][j].type = 'P';
 		++player->moves_nb;
-		ft_printf("Vous avez fait %ld mouvements.\n", player->moves_nb);
+		ft_printf("Vous avez fait %d mouvements.\n", player->moves_nb);
 	} 
 }

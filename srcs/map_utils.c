@@ -102,7 +102,7 @@ t_queue	*load_map_in_queue(int map_fd, size_t *row_nb)
 		if (line != NULL)
 		{
 			if (!queue)
-				*row_nb = ft_strlen(line) - 1;
+				*row_nb = ft_strlen2(line) - 1;
 			else
 				if (!check_row_nb(line, row_nb))
 					return (NULL);

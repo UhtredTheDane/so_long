@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 18:47:54 by agengemb          #+#    #+#             */
-/*   Updated: 2023/01/03 23:21:09 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/01/11 01:56:28 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ int	main(int argc, char **argv)
 	if (!canvas)
 		return (0);
 	show_map(canvas);
+	
+	printf("coucou\n");
 	mlx_key_hook(canvas->window, keyboard_manage, canvas);
 	mlx_hook(canvas->window, 17, 0, close_window, canvas);
 	mlx_loop(canvas->mlx);

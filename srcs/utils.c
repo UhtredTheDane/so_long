@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 22:12:57 by agengemb          #+#    #+#             */
-/*   Updated: 2022/11/28 22:17:28 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/01/11 01:45:29 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int is_alpha(int color)
  * excluding the terminating null byte.
  */
 
-size_t	ft_strlen(const char *s)
+size_t	ft_strlen2(const char *s)
 {
 	size_t	length;
 
