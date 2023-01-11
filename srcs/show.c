@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 04:49:10 by agengemb          #+#    #+#             */
-/*   Updated: 2023/01/11 05:26:19 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/01/11 06:19:15 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ void	show_player(t_canvas *canvas, t_data *background, size_t i, size_t j)
 			&player.line_length, &player.endian);
 	pixel = 0;
 	y = 0;
-	while (y < 40)
+	while (y < 48)
 	{
 		x = 0;
-		while (x < 17)
+		while (x < 48)
 		{
 			pixel = y * player.line_length + x * (player.bits_per_pixel / 8);
 			if (!is_alpha(*(int *)(player.addr + pixel)))
-				my_mlx_pixel_put(background, x + 50 * j, y + 48 * i,
+				my_mlx_pixel_put(background, x + 48 * j, y + 48 * i,
 					*(int *)(player.addr + pixel));
 			++x;
 		}
