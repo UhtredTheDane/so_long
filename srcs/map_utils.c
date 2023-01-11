@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 04:36:45 by agengemb          #+#    #+#             */
-/*   Updated: 2023/01/11 05:51:04 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/01/11 06:45:06 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,8 @@ int	fill_map(void *mlx, t_map *map, t_block **block_map, t_queue *queue)
 		position[1] = 0;
 		while (position[1] < map->row_nb)
 		{
-			printf("i: %ld et j : %ld\n", position[0], position[1]);
 			if (!check_block(mlx, map, line[position[1]], position))
-				return (0);	
+				return (0);
 			init_block(&block_map[position[0]][position[1]],
 				line[position[1]], map->tiles_set);
 			++position[1];

@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 18:47:54 by agengemb          #+#    #+#             */
-/*   Updated: 2023/01/11 05:44:18 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/01/11 06:44:34 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ int	open_file(char *file_name)
 
 int	main(int argc, char **argv)
 {
-	t_canvas		*canvas;
-	t_queue	*queue;
-	size_t	row_nb;
-	int		map_fd;
-	
+	t_canvas	*canvas;
+	t_queue		*queue;
+	size_t		row_nb;
+	int			map_fd;
+
 	if (argc != 2)
 		return (0);
 	map_fd = open_file(argv[1]);
@@ -63,7 +63,6 @@ int	main(int argc, char **argv)
 		return (0);
 	}
 	canvas = create_canvas(queue, ft_queuesize(queue), row_nb);
-	printf("coucou\n");
 	free_queue(queue);
 	if (!canvas)
 		return (0);

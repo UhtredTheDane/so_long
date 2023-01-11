@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 10:42:45 by agengemb          #+#    #+#             */
-/*   Updated: 2022/09/29 23:53:01 by agengemb         ###   ########.fr       */
+/*   Updated: 2022/09/30 16:13:45 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_list	*ft_lstnew(char content)
 void	push_back(t_list **lst, t_list *new)
 {
 	t_list	*elem;
-	
+
 	if (lst && new)
 	{
 		if (*lst == NULL)
@@ -42,17 +42,16 @@ void	push_back(t_list **lst, t_list *new)
 	}
 }
 
-void pop_front(t_list **lst)
+void	pop_front(t_list **lst)
 {
-	t_list *elem;
-	
+	t_list	*elem;
+
 	if (lst && *lst)
 	{
 		elem = *lst;
 		*lst = (*lst)->next;
 		free(elem);
 	}
-
 }
 
 t_list	*ft_lstlast(t_list *lst)
@@ -77,4 +76,3 @@ int	ft_lstsize(t_list *lst)
 	}
 	return (size);
 }
-
