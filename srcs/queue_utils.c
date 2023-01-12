@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 02:47:55 by agengemb          #+#    #+#             */
-/*   Updated: 2023/01/12 03:13:51 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/01/12 03:18:30 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,3 @@ void	free_queue(t_queue *queue)
 	while (queue)
 		queue_pop(&queue);
 }
-
-
