@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 04:36:45 by agengemb          #+#    #+#             */
-/*   Updated: 2023/01/11 06:45:06 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/01/12 03:05:07 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,28 +75,26 @@ int	create_2d_tab(t_map *map, t_block **block_map)
 int	fill_map(void *mlx, t_map *map, t_block **block_map, t_queue *queue)
 {
 	char	*line;
-	size_t	position[2];
+	size_t	pos[2];
 
-	position[0] = 0;
-	while (position[0] < map->line_nb)
+	pos[0] = 0;
+	while (pos[0] < map->line_nb)
 	{
 		line = queue->content;
-		position[1] = 0;
-		while (position[1] < map->row_nb)
+		pos[1] = 0;
+		while (pos[1] < map->row_nb)
 		{
-			if (!check_block(mlx, map, line[position[1]], position))
+			if (!check_block(mlx, map, line[pos[1]], pos))
+			{
+				free_queue(&queue);
 				return (0);
-			init_block(&block_map[position[0]][position[1]],
-				line[position[1]], map->tiles_set);
-			++position[1];
+			}
+			init_block(&block_map[pos[0]][pos[1]], line[pos[1]],
+				map->tiles_set);
+			++pos[1];
 		}
 		queue_pop(&queue);
-		++position[0];
-	}
-	if (!check_path(map, block_map, map->player->i, map->player->j))
-	{
-		ft_printf("Error\nIl n'existe pas de chemin valide\n");
-		return (0);
+		++pos[0];
 	}
 	return (1);
 }
@@ -106,9 +104,11 @@ t_queue	*load_map_in_queue(int map_fd, size_t *row_nb)
 	char	*line;
 	t_queue	*queue;
 	t_queue	*elem;
+	int		good;
 
 	line = "";
 	queue = NULL;
+	good = 1;
 	while (line != NULL)
 	{
 		line = get_next_line(map_fd);
@@ -118,10 +118,11 @@ t_queue	*load_map_in_queue(int map_fd, size_t *row_nb)
 				*row_nb = ft_strlen2(line) - 1;
 			else
 				if (!check_row_nb(line, row_nb))
-					return (NULL);
+					good = 0;
 			elem = ft_queuenew(line);
-			queue_add(&queue, elem);
+			if (elem)
+				queue_add(&queue, elem);
 		}
 	}
-	return (queue);
+	return (is_queue_good(queue, good));
 }

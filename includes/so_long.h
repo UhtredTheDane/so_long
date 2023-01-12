@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:00:21 by agengemb          #+#    #+#             */
-/*   Updated: 2023/01/11 05:16:39 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/01/12 00:35:13 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int		keyboard_manage(int keycode, t_canvas *canvas);
 int		is_alpha(int color);
 size_t	ft_strlen2(const char *s);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void	free_queue(t_queue *queue);
+void	free_queue(t_queue **queue);
+t_queue	*is_queue_good(t_queue *queue, int good);
 void	ft_exit(t_canvas *canvas);
 int		open_file(char *file_name);
 int		close_window(t_canvas *canvas);

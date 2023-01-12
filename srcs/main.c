@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 18:47:54 by agengemb          #+#    #+#             */
-/*   Updated: 2023/01/11 06:44:34 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/01/12 01:07:30 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,12 @@ int	main(int argc, char **argv)
 	queue = load_map_in_queue(map_fd, &row_nb);
 	close(map_fd);
 	if (!queue)
+		return (0);
+	canvas = create_canvas(queue, ft_queuesize(queue), row_nb);
+	if (!canvas)
 	{
-		free_queue(queue);
 		return (0);
 	}
-	canvas = create_canvas(queue, ft_queuesize(queue), row_nb);
-	free_queue(queue);
-	if (!canvas)
-		return (0);
 	show_map(canvas);
 	mlx_key_hook(canvas->window, keyboard_manage, canvas);
 	mlx_hook(canvas->window, 17, 0, close_window, canvas);

@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:41:05 by agengemb          #+#    #+#             */
-/*   Updated: 2023/01/11 05:47:01 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/01/12 02:29:09 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ int	init_block_map(void *mlx, t_map *map, t_queue *queue)
 	if (!block_map || !create_2d_tab(map, block_map))
 		return (0);
 	map->block_map = block_map;
-	if (!fill_map(mlx, map, block_map, queue) || !map->collectibles_nb
-		|| !map->player || !map->exit)
+	if (!fill_map(mlx, map, block_map, queue) || !check_min(map)
+		|| !check_path(map, block_map, map->player->i, map->player->j))
 	{
 		free_block_map(block_map, map->line_nb);
-		if (!map->player)
+		if (map->player)
 		{
 			free_set(mlx, map->player->sprites_set, 4);
 			free(map->player);
