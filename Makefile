@@ -6,12 +6,12 @@
 #    By: agengemb <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 05:17:18 by agengemb          #+#    #+#              #
-#    Updated: 2023/01/11 23:32:43 by agengemb         ###   ########.fr        #
+#    Updated: 2023/01/12 03:16:00 by agengemb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -g3
+CFLAGS = -Wall -Werror -Wextra
 NAME = so_long
 LIB1 = ./ft_printf/libftprintf.a
 LIB2 =./get_next_line/get_next_line.a

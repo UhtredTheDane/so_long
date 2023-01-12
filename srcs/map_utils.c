@@ -6,7 +6,7 @@
 /*   By: agengemb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 04:36:45 by agengemb          #+#    #+#             */
-/*   Updated: 2023/01/12 03:05:07 by agengemb         ###   ########.fr       */
+/*   Updated: 2023/01/12 03:15:46 by agengemb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	fill_map(void *mlx, t_map *map, t_block **block_map, t_queue *queue)
 		{
 			if (!check_block(mlx, map, line[pos[1]], pos))
 			{
-				free_queue(&queue);
+				free_queue(queue);
 				return (0);
 			}
 			init_block(&block_map[pos[0]][pos[1]], line[pos[1]],
